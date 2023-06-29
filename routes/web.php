@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CryptoCurrencyController;
 use App\Http\Controllers\CurrencyController;
+use App\Http\Controllers\AccountController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,9 +32,14 @@ Route::get('/currencies',
     [CurrencyController::class, 'index'])
     ->name('currencies');
 
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
+Route::get('/create', [AccountController::class, 'create'])
+    ->middleware(['auth', 'verified'])->name('accounts.create');
+
+Route::post('/create', [AccountController::class, 'store'])
+    ->middleware(['auth', 'verified'])->name('accounts.store');
 
 require __DIR__.'/auth.php';

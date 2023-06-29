@@ -2,12 +2,23 @@
 
 @section('content')
 
-    <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
-        <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-            <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
-                <h1 class="text-3xl text-gray-700 font-semibold">Welcome! Here you can open new account</h1>
-            </div>
-        </div>
-    </div>
+        <h1>Create Account</h1>
+
+        <form action="{{ route('accounts.store') }}" method="POST">
+            @csrf
+
+            <label for="type">Account Type:</label>
+            <select name="type" id="type">
+                <option value="regular">Regular</option>
+                <option value="savings">Savings</option>
+            </select>
+
+            <label for="currency">Currency:</label>
+            <input type="text" name="currency" id="currency">
+
+            <button type="submit">Create Account</button>
+        </form>
 
 @endsection
+
+
