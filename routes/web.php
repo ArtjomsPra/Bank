@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CryptoCurrencyController;
+use App\Http\Controllers\CurrencyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +18,22 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/crypto',
+    [CryptoCurrencyController::class, 'index'])
+    ->name('crypto');
+
+Route::get('/buy', function () {
+    return view('buy');
+})->name('buy');
+
+Route::get('/currencies',
+    [CurrencyController::class, 'index'])
+    ->name('currencies');
+
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
