@@ -2,12 +2,27 @@
 
 @section('content')
 
-    <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
-    <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-        <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
-            <h1 class="text-3xl text-gray-700 font-semibold">Welcome to your accounts</h1>
+    <h1>My Accounts</h1>
+
+    @foreach ($accounts as $account)
+        <div>
+            <a href="{{ route('transactions', $account->id) }}"><h2>Account: {{ $account->account }}</h2></a>
+            <p>Type: {{ $account->type }}</p>
+            <p>Currency: {{ $account->currency }}</p>
+            <p>Amount: {{ $account->amount }}</p>
+
+            <a href="{{ route('transfer', $account->id) }}">Make Transfer</a>
+
+            @if ($account->amount == 0)
+                <form action="{{ route('accounts.destroy', $account->id) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit">Delete</button>
+                </form>
+            @endif
+
         </div>
-    </div>
-</div>
+        <hr>
+    @endforeach
 
 @endsection

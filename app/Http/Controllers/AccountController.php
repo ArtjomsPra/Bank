@@ -12,7 +12,7 @@ class AccountController extends Controller
     public function index()
     {
         $accounts = Account::where('user_id', Auth::id())->get();
-        return view('show', [
+        return view('account.show', [
             'accounts' => $accounts
         ]);
     }
@@ -36,11 +36,11 @@ class AccountController extends Controller
             'account' => 'LV' . rand(00,99) . 'ARPB' . rand(0000000000, 9999999999),
             'type' => request('type'),
             'currency' => request('currency'),
-            'amount' => 0,
+            'amount' => request('amount'),
        ]);
         $account->user()->associate(Auth::user());
         $account->save();
-        return redirect()->route('/')->with('success', 'Account was created Successfully');
+        return redirect()->route('accounts.show')->with('success', 'Account was created successfully');
     }
 
 
@@ -65,6 +65,13 @@ class AccountController extends Controller
 
     public function destroy($id)
     {
+        $account = Account::findOrFail($id);
 
+        if ($account->amount == 0) {
+            $account->delete();
+            return redirect()->back()->with('success', 'Account was deleted successfully');
+        } else {
+            return redirect()->back()->with('error', 'Account cannot be deleted if balance is not 0');
+        }
     }
 }

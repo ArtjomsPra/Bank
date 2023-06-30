@@ -11,7 +11,7 @@ class Account extends Model
 {
     use HasFactory;
 
-    protected $fillabe = [
+    protected $fillable = [
         'account',
         'type',
         'currency',

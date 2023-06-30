@@ -16,6 +16,7 @@
             <li><a href="/login">Login</a></li>
             <li><a href="/register">Register</a></li>
             <li><a href="/create">Create account</a></li>
+            <li><a href="/accounts">My accounts</a></li>
         </ul>
     </nav>
     @yield('content')

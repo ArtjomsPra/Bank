@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Account;
+use App\Models\Currency;
 
 class Transaction extends Model
 {
@@ -16,7 +19,9 @@ class Transaction extends Model
         'from_user_id',
         'to_user_id',
         'amount',
-        'currency'
+        'currency',
+        'transaction_type',
+        'additional_info'
     ];
 
     public function account(): BelongsTo
